@@ -1,0 +1,22 @@
+
+MS SQL Server 2022 Ubuntu
+
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Aa@123456" -p 1433:1433 -d mcr.microsoft.com/mssql/server
+
+For First Database creation:
+
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Aa@123456"
+
+create database MT_DB_Finance;
+create database MT_DB_Geograply;
+create database MT_DB_Inventory;
+
+create database MT_DB_Product;
+create database MT_DB_Purchase;
+create database MT_DB_Sales;
+
+create database MT_DB_Store;
+create database MT_DB_User;
+
+
+
