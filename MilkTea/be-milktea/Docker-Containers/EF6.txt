@@ -1,0 +1,9 @@
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+## User.Api
+dotnet ef migrations add ef-01-init-user -o Data/Migrations --prefix-output   
+dotnet ef migrations add ef-02-add-columns -o Data/Migrations --prefix-output   
+
