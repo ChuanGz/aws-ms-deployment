@@ -1,7 +1,6 @@
-﻿using System;
-namespace User.Api.Models.Queries
+﻿namespace User.Api.Models.Queries
 {
-	public class GroupGetOne
+    public class GroupGetOne
 	{
         public int UserGroupId { get; set; }
         public string UserGroupCode { get; set; }

@@ -1,7 +1,6 @@
-﻿using System;
-namespace User.Api.Models.Commands
+﻿namespace User.Api.Models.Commands
 {
-	public class GroupCreate
+    public class GroupCreate
     {
         public string UserGroupCode { get; set; }
         public string UserGroupName { get; set; }
