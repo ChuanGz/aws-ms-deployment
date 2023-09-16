@@ -1,13 +1,13 @@
-namespace User.Api.Data.Entities
+﻿using System;
+namespace User.Api.Models.Commands
 {
-    public class UserGroup
-    {
-        public int UserGroupId { get; set; }
+	public class GroupUpdate
+	{
         public string UserGroupCode { get; set; }
         public string UserGroupName { get; set; }
         public bool UserGroupStatus { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }
+

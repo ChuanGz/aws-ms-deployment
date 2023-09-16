@@ -10,7 +10,7 @@ using User.Api.Data.Entities;
 
 namespace User.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user-group")]
     [ApiController]
     public class UserGroupController : ControllerBase
     {
@@ -76,7 +76,7 @@ namespace User.Api.Controllers
         // POST: api/UserGroup
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserGroupController>> PostUserGroup(UserGroup userGroup)
+        public async Task<ActionResult<UserGroup>> PostUserGroup(UserGroup userGroup)
         {
             _context.UserGroups.Add(userGroup);
             await _context.SaveChangesAsync();

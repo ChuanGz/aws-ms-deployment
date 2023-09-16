@@ -2,34 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using User.Api.Data;
+using User.Api.Data.Entities;
+using User.Api.Models.Commands;
+using User.Api.Models.Queries;
 
 namespace User.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly MT_DB_UserContext _context;
+        private readonly IMapper _mapper;
 
-        public UserController(MT_DB_UserContext context)
+        public UserController(MT_DB_UserContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Data.Entities.User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserGetOne>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            List<Data.Entities.User> users = await _context.Users.ToListAsync();
+            List<UserGetOne> queryResult = users.Select(i => _mapper.Map<UserGetOne>(i)).ToList();
+            return queryResult;
         }
 
-        // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Data.Entities.User>> GetUser(int id)
+        public async Task<ActionResult<UserGetOne>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -37,21 +44,17 @@ namespace User.Api.Controllers
             {
                 return NotFound();
             }
-
-            return user;
+            var queryResult = _mapper.Map<UserGetOne>(user);
+            return queryResult;
         }
 
-        // PUT: api/User/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, Data.Entities.User user)
+        public async Task<IActionResult> PutUser(int id, UserUpdate userInput)
         {
-            if (id != user.UserId)
-            {
-                return BadRequest();
-            }
+            var userToUpdate = _mapper.Map<Data.Entities.User>(userInput);
+            userToUpdate.UserId = id;
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(userToUpdate).State = EntityState.Modified;
 
             try
             {
@@ -72,18 +75,16 @@ namespace User.Api.Controllers
             return NoContent();
         }
 
-        // POST: api/User
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Data.Entities.User>> PostUser(Data.Entities.User user)
+        public async Task<ActionResult<Data.Entities.User>> PostUser(UserCreate userInput)
         {
-            _context.Users.Add(user);
+            var userToCreate = _mapper.Map<Data.Entities.User>(userInput);
+            _context.Users.Add(userToCreate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUser", new { id = userToCreate.UserId }, userToCreate);
         }
 
-        // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
