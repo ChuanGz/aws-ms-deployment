@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using User.Api.Data;
 
@@ -11,9 +12,11 @@ using User.Api.Data;
 namespace User.Api.Data.Migrations
 {
     [DbContext(typeof(MT_DB_UserContext))]
-    partial class MT_DB_UserContextModelSnapshot : ModelSnapshot
+    [Migration("20230916123854_ef-03-link-to-group")]
+    partial class ef03linktogroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

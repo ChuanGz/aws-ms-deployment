@@ -1,6 +1,6 @@
-namespace User.Api.Data.Entities
+namespace User.Api.Models.Queries
 {
-    public class User
+    public class UserGetOne
     {
         public int UserId { get; set; }
         public string LoginName { get; set; }
@@ -10,8 +10,8 @@ namespace User.Api.Data.Entities
         public string LastName { get; set; }
         public bool UserStatus { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string UserGroupCode { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public virtual UserGroup UserGroup { get; set; }
     }
 }
